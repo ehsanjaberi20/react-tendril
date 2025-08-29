@@ -2,9 +2,11 @@
 
 مجموعه ای از کامپوننت های ضروری برای React
 
-- TendrilGrid
-- TendrilDatePicker
-- TendrilDynamicForm
+- TendrilGrid(در حال توسعه)
+- TendrilDatePicker(در حال توسعه)
+- TendrilDynamicForm(در حال توسعه)
+
+در صورت بروزرسانی پکیج، تغییرات در فایل README درج می شود. 
 <!-- 
 Currently, two official plugins are available:
 
