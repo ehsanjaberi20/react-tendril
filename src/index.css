@@ -1,0 +1,5 @@
+@import url('./assets/fonts/index.css');
+@import "tailwindcss";
+:root{
+    font-family: "Vazirmatn FD";
+}
