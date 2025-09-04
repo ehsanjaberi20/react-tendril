@@ -3,13 +3,16 @@ import "./App.css";
 import Header from "./layouts/header/Header";
 import { Input } from "./components/baseComponents/Input";
 import { TextArea } from "./components/baseComponents/TextArea";
+import { Select } from "./components/baseComponents/Select";
 function App() {
   const [value, setValue] = useState<string>('');
+  console.log(value);
+  
   return (
     <Fragment>
       <Header />
       <main className="m-2">
-        <Input label="نام کاربری"
+        {/* <Input label="نام کاربری"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           isInvalid={false}
@@ -19,7 +22,25 @@ function App() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           rows={5}
-          
+
+        /> */}
+        <Select label="رده سازمانی"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          options={[
+            {
+              label: 'رده 1',
+              value: '1'
+            },
+            {
+              label: 'رده 2',
+              value: '2'
+            },
+            {
+              label: 'رده 3',
+              value: '3'
+            }
+          ]}
         />
       </main>
     </Fragment>

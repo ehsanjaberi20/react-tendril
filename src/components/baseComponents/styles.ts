@@ -17,7 +17,9 @@ export const labelBaseStyle = (isInvalid: boolean) => css`
     input:focus + &,
     input:not(:placeholder-shown) + &,
     textarea:focus + &,
-    textarea:not(:placeholder-shown) + & {
+    textarea:not(:placeholder-shown) + &,
+    select:focus + &,
+    select:valid + & {
         color:  ${isInvalid ? '#ff0000ff' : '#0077ff'};
     }
 `;
@@ -28,7 +30,9 @@ export const labelSizeStyles = {
         input:focus + &,
         input:not(:placeholder-shown) + &,
         textarea:focus + &,
-        textarea:not(:placeholder-shown) + & {
+        textarea:not(:placeholder-shown) + &,
+        select:focus + &,
+        select:valid + & {
             font-size: 10px;
             top: -6px;
         }
@@ -39,7 +43,9 @@ export const labelSizeStyles = {
         input:focus + &,
         input:not(:placeholder-shown) + &,
         textarea:focus + &,
-        textarea:not(:placeholder-shown) + & {
+        textarea:not(:placeholder-shown) + &,
+        select:focus + &,
+        select:valid + & {
             font-size: 12px;
             top: -8px;
         }
@@ -50,7 +56,9 @@ export const labelSizeStyles = {
         input:focus + &,
         input:not(:placeholder-shown) + &,
         textarea:focus + &,
-        textarea:not(:placeholder-shown) + & {
+        textarea:not(:placeholder-shown) + & ,
+        select:focus + &,
+        select:valid + & {
             font-size: 14px;
             top: -10px;
         }
