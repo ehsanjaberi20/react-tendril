@@ -1,47 +1,34 @@
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-
+// container
 export const containerStyle = css`
     position: relative;
     margin: 24px 0;
 `;
-type LableType = {
-    isInvalid: boolean
-}
-export const Label = styled.label<LableType>`
+
+/* label */
+export const labelBaseStyle = (isInvalid: boolean) => css`
     position: absolute;
     right: 8px;
-    color: #888;
+    color: ${isInvalid ? '#ff0000ff' : '#888'};
     background: white;
     padding: 0 4px;
     pointer-events: none;
     transition: all 0.2s;
     input:focus + &,
-    input:not(:placeholder-shown) + & {
-        color: ${p=> p.isInvalid ? '#ff0000ff' : '#0077ff'};
-        /* color: #0077ff; */
+    input:not(:placeholder-shown) + &,
+    textarea:focus + &,
+    textarea:not(:placeholder-shown) + & {
+        color:  ${isInvalid ? '#ff0000ff' : '#0077ff'};
     }
-`
-// export const labelBaseStyle = css`
-//     position: absolute;
-//     right: 8px;
-//     color: #888;
-//     background: white;
-//     padding: 0 4px;
-//     pointer-events: none;
-//     transition: all 0.2s;
-//     input:focus + &,
-//     input:not(:placeholder-shown) + & {
-//         color: #0077ff;
-//     }
-// `;
-
+`;
 export const labelSizeStyles = {
     sm: css`
         font-size: 14px;
         top: 8px;
         input:focus + &,
-        input:not(:placeholder-shown) + & {
+        input:not(:placeholder-shown) + &,
+        textarea:focus + &,
+        textarea:not(:placeholder-shown) + & {
             font-size: 10px;
             top: -6px;
         }
@@ -50,7 +37,9 @@ export const labelSizeStyles = {
         font-size: 16px;
         top: 10px;
         input:focus + &,
-        input:not(:placeholder-shown) + & {
+        input:not(:placeholder-shown) + &,
+        textarea:focus + &,
+        textarea:not(:placeholder-shown) + & {
             font-size: 12px;
             top: -8px;
         }
@@ -59,25 +48,28 @@ export const labelSizeStyles = {
         font-size: 18px;
         top: 16px;
         input:focus + &,
-        input:not(:placeholder-shown) + & {
+        input:not(:placeholder-shown) + &,
+        textarea:focus + &,
+        textarea:not(:placeholder-shown) + & {
             font-size: 14px;
             top: -10px;
         }
     `,
 };
 
-export const sizeBaseStyles = css`
+/* control */
+export const controlBaseStyles = (isInvalid: boolean) => css`
                     width: 100%;
-                    border: 1px solid #ccc;
+                    border: 1px solid ${isInvalid ? 'red' : '#ccc'};
                     border-radius: 4px;
                     outline: none;
                     background: none;
                     transition: border-color 0.2s;
                     &:focus {
-                        border-color: #0077ff;
+                        border-color: ${isInvalid ? 'red' : '#0077ff'};
                     }
 `
-export const sizeStyles = {
+export const controlSizeStyles = {
     sm: css`
         padding: 8px 6px 6px 6px;
         font-size: 14px;
@@ -91,3 +83,11 @@ export const sizeStyles = {
         font-size: 18px;
     `,
 };
+
+/* helperText */
+export const HelperBaseStyles = (isInvalid: boolean) => css`
+      margin-right: 5px;
+      color: ${isInvalid ? '#ff0000ff' : '#9b9b9b'};
+      font-size: 75%;
+      font-weight: 400
+`

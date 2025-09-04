@@ -1,11 +1,12 @@
 
 import React from "react";
-import { containerStyle, Label, labelSizeStyles, sizeBaseStyles, sizeStyles } from "./styles";
-import type { SerializedStyles } from "@emotion/react";
+import { containerStyle, labelBaseStyle, labelSizeStyles, controlBaseStyles, controlSizeStyles, HelperBaseStyles } from "./styles";
+import { type SerializedStyles } from "@emotion/react";
 export type ProviderType = {
   label: string;
   size?: "sm" | "md" | "lg";
   isInvalid?: boolean,
+  helperText?: string,
 };
 interface ProviderT extends ProviderType {
   children: (childrenProps: {
@@ -14,18 +15,20 @@ interface ProviderT extends ProviderType {
 };
 
 export const Provider = (props: ProviderT) => {
-  const { label, size = 'md', children, isInvalid = false } = props;
+  const { label, size = 'md', children, isInvalid = false, helperText = "" } = props;
 
   const childrenProps = {
-    css: [sizeBaseStyles, sizeStyles[size]]
+    css: [controlBaseStyles(isInvalid), controlSizeStyles[size]]
   }
   return (
     <div css={containerStyle}>
       {children(childrenProps)}
-      <Label isInvalid={isInvalid} css={[labelSizeStyles[size]]}>
-        {label}
-      </Label>
-      {/* <label css={[labelBaseStyle, labelSizeStyles[size]]}></label> */}
+      <label css={[labelBaseStyle(isInvalid), labelSizeStyles[size]]}>{label}</label>
+      {
+        helperText && (
+          <small css={[HelperBaseStyles(isInvalid)]}>{helperText}</small>
+        )
+      }
     </div>
   );
 };

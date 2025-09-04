@@ -1,24 +1,26 @@
 import React from "react";
 import { Provider, type ProviderType } from "./Provider";
 
-interface InputProps extends ProviderType {
+interface TextAreaProps extends ProviderType {
     value: string,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
+    rows: number
 }
 
-export const Input: React.FC<InputProps> = (props: InputProps) => {
-    const { value, onChange } = props;
+export const TextArea: React.FC<TextAreaProps> = (props) => {
+    const { value, onChange, rows } = props;
     return (
         <Provider {...props}>
             {(childrenProps) => {
                 return (
-                    <input
-                        type="text"
-                        {...childrenProps}
+                    <textarea {...childrenProps}
                         placeholder=""
+                        rows={rows}
                         value={value}
                         onChange={onChange}
-                    />
+                    >
+
+                    </textarea>
                 )
             }}
         </Provider>
