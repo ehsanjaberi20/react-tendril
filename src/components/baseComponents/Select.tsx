@@ -65,14 +65,8 @@ export const Select: React.FC<SelectProps> = (props) => {
         <Provider {...props} >
             {(childrenProps) => {
                 return (
-                    <div ref={ref}>
-                        <input placeholder=""
-                            {...childrenProps}
-                            type="text"
-                            value={value}
-                            onClick={() => setIsOpen(x => !x)}
-                            onChange={handleChange} />
-                        <Dropdown isOpen={isOpen}>
+                    <Fragment>
+                          <Dropdown isOpen={isOpen}>
                             {filteredOptions.length === 0 && (
                                 <Option selected={false} style={{ color: "#aaa", cursor: "default" }}>
                                     گزینه‌ای یافت نشد
@@ -91,7 +85,15 @@ export const Select: React.FC<SelectProps> = (props) => {
                                 </Option>
                             ))}
                         </Dropdown>
-                    </div>
+                        <input placeholder=""
+                            {...childrenProps}
+                            type="text"
+                            value={value}
+                            onClick={() => setIsOpen(x => !x)}
+                            onChange={handleChange} />
+                            {/* <div></div> */}
+                      
+                    </Fragment>
                 )
                 // <select
                 //     {...childrenProps}
