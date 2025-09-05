@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Provider, type ProviderType } from "./Provider";
 import styled from "@emotion/styled";
+import { containerStyle, controlBaseStyles, controlSizeStyles, labelBaseStyle, labelSizeStyles } from "./styles";
 
 interface SelectOption {
     value: string;
@@ -37,21 +38,21 @@ const Option = styled.li<{ selected: boolean }>`
 `;
 
 export const Select: React.FC<SelectProps> = (props) => {
-    const { value, onChange, options } = props;
+    const { value, onChange, options, isInvalid = false, size = 'sm' } = props;
     const ref = useRef<HTMLDivElement>(null);
 
     const [search, setSearch] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
-            const handleClickOutside = (event: MouseEvent) => {
-                if (ref.current && !ref.current.contains(event.target as Node)) {
-                    setIsOpen(false);
-                }
-            };
-            document.addEventListener("mousedown", handleClickOutside);
-            return () => document.removeEventListener("mousedown", handleClickOutside);
-        }, []);
-    
+        const handleClickOutside = (event: MouseEvent) => {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     const handleChange = (e) => {
 
     }
@@ -60,55 +61,38 @@ export const Select: React.FC<SelectProps> = (props) => {
     const filteredOptions = options.filter((opt) =>
         opt.label.toLowerCase().includes(search.toLowerCase())
     );
-
+    const childrenProps = {
+        css: [controlBaseStyles(isInvalid), controlSizeStyles[size]]
+    }
     return (
-        <Provider {...props} >
-            {(childrenProps) => {
-                return (
-                    <Fragment>
-                          <Dropdown isOpen={isOpen}>
-                            {filteredOptions.length === 0 && (
-                                <Option selected={false} style={{ color: "#aaa", cursor: "default" }}>
-                                    گزینه‌ای یافت نشد
-                                </Option>
-                            )}
-                            {filteredOptions.map((opt) => (
-                                <Option
-                                    key={opt.value}
-                                    selected={opt.value === value}
-                                    onClick={() => {
-                                        onChange?.(opt.value);
-                                        setIsOpen(false);
-                                    }}
-                                >
-                                    {opt.label}
-                                </Option>
-                            ))}
-                        </Dropdown>
-                        <input placeholder=""
-                            {...childrenProps}
-                            type="text"
-                            value={value}
-                            onClick={() => setIsOpen(x => !x)}
-                            onChange={handleChange} />
-                            {/* <div></div> */}
-                      
-                    </Fragment>
-                )
-                // <select
-                //     {...childrenProps}
-                //     value={value}
-                //     onChange={onChange}
-                //     required
-                // >
-                //     <option value="" disabled hidden />
-                //     {options.map(opt => (
-                //         <option key={opt.value} value={opt.value}>
-                //             {opt.label}
-                //         </option>
-                //     ))}
-                // </select>
-            }}
-        </Provider>
+        <div css={containerStyle} ref={ref}>
+            <input placeholder=""
+                {...childrenProps}
+                type="text"
+                value={value}
+                onClick={() => setIsOpen(x => !x)}
+                onChange={handleChange} />
+            <label css={[labelBaseStyle(isInvalid), labelSizeStyles[size]]}>{props.label}</label>
+            <Dropdown isOpen={isOpen}>
+                {filteredOptions.length === 0 && (
+                    <Option selected={false} style={{ color: "#aaa", cursor: "default" }}>
+                        گزینه‌ای یافت نشد
+                    </Option>
+                )}
+                {filteredOptions.map((opt) => (
+                    <Option
+                        key={opt.value}
+                        selected={opt.value === value}
+                        onClick={() => {
+                            onChange?.(opt.value);
+                            setIsOpen(false);
+                        }}
+                    >
+                        {opt.label}
+                    </Option>
+                ))}
+            </Dropdown>
+
+        </div>
     );
 };
